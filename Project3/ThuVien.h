@@ -1,11 +1,12 @@
 #pragma once
 #include <iostream>
 
-const int MAX = 100;
+const int MAX = 50;
 using namespace std;
 struct ThanhVien
 {
-	char TenHo[20];
+	int cmnd;
+	char TenHo[30];
 	int Tuoi;
 	char GioiTinh[20];
 };
@@ -13,7 +14,7 @@ struct ThanhVien
 struct HoKhau
 {
 	int id;
-	char ChuHo[20];
+	char ChuHo[30];
 	int TuoiChuHo;
 	char GioiTinhChuHo[20];
 	ThanhVien DSTVien[MAX];
@@ -34,3 +35,5 @@ void NhapDSHoKhau(Phuong& DSHKhau);
 void XuatDSHoKhau(Phuong& DSHKhau);
 void themTVien(Phuong& DSHKhau);
 void themHKhau(Phuong& DSHKhau);
+void XoaTVien(Phuong& DSHKhau);
+void XoaHoKhau(Phuong& DSHKhau);
