@@ -1,6 +1,2 @@
 ﻿  CaiDat.cpp
-  ChuongTrinh.cpp
-D:\VS\DoAnTinHoc\Project3\Project3\ChuongTrinh.cpp(6,9): warning C4101: 'HKhau': unreferenced local variable
-D:\VS\DoAnTinHoc\Project3\Project3\ChuongTrinh.cpp(5,12): warning C4101: 'TVien': unreferenced local variable
-  Generating Code...
   Project3.vcxproj -> D:\VS\DoAnTinHoc\Project3\x64\Debug\Project3.exe

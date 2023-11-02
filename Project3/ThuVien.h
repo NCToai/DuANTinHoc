@@ -8,32 +8,43 @@ struct ThanhVien
 	int cmnd;
 	char TenHo[30];
 	int Tuoi;
-	char GioiTinh[20];
+	bool GioiTinh;
 };
 
 struct HoKhau
 {
-	int id;
+	int id = 0;
 	char ChuHo[30];
-	int TuoiChuHo;
-	char GioiTinhChuHo[20];
+	int TuoiChuHo = 0;
+	bool GioiTinhChuHo;
+	char diaChi[60];
 	ThanhVien DSTVien[MAX];
-	int SLTVien;
+	int SLTVien = 0;
 };
 
 struct Phuong
 {
-	int SLHoKhau;
+	int SLHoKhau = 0;
 	HoKhau DSHoKhau[MAX];
 };
 
 void NhapTVien(ThanhVien& tv);
 void XuatTVien(ThanhVien& tv);
+
 void NhapHoKhau(HoKhau& HKhau);
 void xuatHoKhau(HoKhau& Hkhau);
+
 void NhapDSHoKhau(Phuong& DSHKhau);
 void XuatDSHoKhau(Phuong& DSHKhau);
+
 void themTVien(Phuong& DSHKhau);
 void themHKhau(Phuong& DSHKhau);
+
 void XoaTVien(Phuong& DSHKhau);
 void XoaHoKhau(Phuong& DSHKhau);
+
+int timTVien_chiso(HoKhau& HKhau);
+int timHK_chiso(Phuong& DSHKhau);
+
+void thongTinTVTiemKiem(Phuong& DSHKhau);
+void thongtinHKTiemKiem(Phuong& DSHKhau);

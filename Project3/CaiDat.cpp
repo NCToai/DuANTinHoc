@@ -9,15 +9,19 @@ void NhapTVien(ThanhVien& tv)
 	cin.getline (tv.TenHo, 30);
 	cout << "Nhap tuoi: ";
 	cin >> tv.Tuoi;
-	cout << "Nhap gioi tinh: ";
-	cin >> tv.GioiTinh;
+	cout << "Nhap gioi tinh (Nam:1, Nu: 0): ";
+	int gt;
+	cin >> gt;
+	gt ? tv.GioiTinh = 1 : tv.GioiTinh = 0;
+	cin.ignore();
+	
 }
 void XuatTVien(ThanhVien& tv)
 {
-	cout << "So CMND: " << tv.cmnd << endl;
-	cout << "Ten thanh vien: "<< tv.TenHo << endl;
-	cout << "Tuoi: "<< tv.Tuoi << endl;
-	cout << "Gioi tinh: "<< tv.GioiTinh << endl;
+	cout << "So CMND:         " << tv.cmnd << endl;
+	cout << "Ten thanh vien:  " << tv.TenHo << endl;
+	cout << "Tuoi:            " << tv.Tuoi << endl;
+	cout << "Gioi tinh:       " << (tv.GioiTinh ? "Nam" : "Nu") << endl;
 }
 void NhapHoKhau(HoKhau& HKhau)
 {
@@ -28,8 +32,14 @@ void NhapHoKhau(HoKhau& HKhau)
 	cin.getline(HKhau.ChuHo, 30);
 	cout << "Nhap tuoi chu ho: ";
 	cin >> HKhau.TuoiChuHo;
-	cout << "Nhap gioi tinh chu ho: ";
-	cin >> HKhau.GioiTinhChuHo;
+	cout << "Nhap gioi tinh chu ho (Nam:1, Nu: 0): ";
+	int gt;
+	cin >> gt;
+	gt ? HKhau.GioiTinhChuHo = 1 : HKhau.GioiTinhChuHo = 0;
+	cin.ignore();
+	cout << "Nhap dia chi: ";
+	cin.ignore();
+	cin.getline(HKhau.diaChi, 60);
 	cout << "Nhap so luong thanh vien: ";
 	cin >> HKhau.SLTVien;
 	for (int i = 0; i < HKhau.SLTVien; i++)
@@ -41,10 +51,12 @@ void NhapHoKhau(HoKhau& HKhau)
 }
 void xuatHoKhau(HoKhau& HKhau)
 {
-	cout << "Ma ho khau: " << HKhau.id << endl;
-	cout << "Chu ho: " << HKhau.ChuHo << endl;
-	cout << "Tuoi chu ho: " << HKhau.TuoiChuHo << endl;
-	cout << "Gioi tinh chu ho: " << HKhau.GioiTinhChuHo << endl;
+	cout << "- Thong tin ho khau: " << endl;
+	cout << "Ma ho khau:        " << HKhau.id << endl;
+	cout << "Chu ho:            " << HKhau.ChuHo << endl;
+	cout << "Tuoi chu ho:       " << HKhau.TuoiChuHo << endl;
+	cout << "Gioi tinh chu ho:  " << (HKhau.GioiTinhChuHo ? "Nam" : "Nu") << endl;
+	cout << "Dia chi ho khau:   " << HKhau.diaChi << endl;
 	for (int i = 0; i < HKhau.SLTVien; i++)
 	{
 		cout << "- Thanh vien " << i + 1 << " : " << endl ;
@@ -71,19 +83,7 @@ void XuatDSHoKhau(Phuong& DSHKhau)
 }
 void themTVien(Phuong& DSHKhau)
 {
-	int ID;
-	cout << "- Nhap ID ho khau ma ban muon them nguoi vao: ";
-	cin >> ID;
-	int index = -1;
-	for (int i = 0; i < DSHKhau.SLHoKhau; i++)
-	{
-		if (ID == DSHKhau.DSHoKhau[i].id)
-		{
-			index = i;
-			break;
-
-		}
-	}
+	int index = timHK_chiso(DSHKhau);
 	if (index == -1)
 	{
 		cout << "Khong tim thay ho khau co ID tuong ung." << endl;
@@ -106,23 +106,11 @@ void themHKhau(Phuong& DSHKhau)
 
 void XoaTVien(Phuong& DSHKhau)
 {
-	int IDHK;
+	int indexHoKhau = timHK_chiso(DSHKhau);
+	int indexTVien = -1;
 	int CMND;
-	cout << "Nhap ma ho khau muon xoa thanh vien: ";
-	cin >> IDHK;
 	cout << "Nhap ma CMND cua thanh vien:";
 	cin >> CMND;
-	int indexHoKhau = -1;
-	int indexTVien = -1;
-	for (int i = 0; i < DSHKhau.SLHoKhau; i++)
-	{
-		if (DSHKhau.DSHoKhau[i].id == IDHK)
-		{
-			indexHoKhau = i;
-			break;
-		}
-	}
-
 	if (indexHoKhau == -1)
 	{
 		cout << "Khong tim thay ho khau co ID chu ho tuong ung trong phuong." << endl;
@@ -157,19 +145,7 @@ void XoaTVien(Phuong& DSHKhau)
 
 void XoaHoKhau(Phuong& DSHKhau)
 {
-	int IDHK;
-	cout << "NHap ma ho khau muon xoa: ";
-	cin >> IDHK;
-	int indexIDHK = -1;
-	for (int i = 0; i < DSHKhau.SLHoKhau; i++)
-	{
-		if (DSHKhau.DSHoKhau[i].id == IDHK)
-		{
-			indexIDHK = i;
-			break;
-		}
-	}
-
+	int indexIDHK = timHK_chiso(DSHKhau);
 	if (indexIDHK == -1)
 	{
 		cout << "Khong tim thay ho khau co ID chu ho tuong ung trong phuong." << endl;
@@ -181,5 +157,64 @@ void XoaHoKhau(Phuong& DSHKhau)
 			DSHKhau.DSHoKhau[i] = DSHKhau.DSHoKhau[i + 1];
 		}
 		DSHKhau.SLHoKhau--;
+	}
+}
+
+int timTVien_chiso(HoKhau& HKhau)
+{
+	int CMND;
+	cout << "Nhap CMND thanh vien: ";
+	cin >> CMND;
+	for (int i = 0; i < HKhau.SLTVien; i++)
+	{
+		if (HKhau.DSTVien[i].cmnd == CMND) return i;
+	}
+	return -1;
+}
+
+int timHK_chiso(Phuong& DSHKhau)
+{
+	int ID;
+	cout << "Nhap ma ho khau: ";
+	cin >> ID;
+	for (int i = 0; i < DSHKhau.SLHoKhau; i++)
+	{
+		if (DSHKhau.DSHoKhau[i].id == ID) return i;
+	}
+	return -1;
+
+}
+
+void thongTinTVTiemKiem(Phuong& DSHKhau)
+{
+	int CMND;
+	cout << "Nhap CMND cua thanh vien: ";
+	cin >> CMND;
+	for (int i = 0; i < DSHKhau.SLHoKhau; i++)
+	{
+		for (int j = 0; j < DSHKhau.DSHoKhau[i].SLTVien; j++)
+		{
+			if (CMND == DSHKhau.DSHoKhau[i].DSTVien[j].cmnd)
+			{
+				XuatTVien(DSHKhau.DSHoKhau[i].DSTVien[j]);
+				break;
+			}
+			else
+			{
+				cout << "Thanh vien khong ton tai. ";
+			}
+		}
+	}
+}
+void thongtinHKTiemKiem(Phuong& DSHKhau)
+{
+	int chisoHK = timHK_chiso(DSHKhau);
+	if (chisoHK == -1)
+	{
+		cout << "Ho Khau khong ton tai. ";
+	}
+	else
+	{
+		xuatHoKhau(DSHKhau.DSHoKhau[chisoHK]);
 	}
 }

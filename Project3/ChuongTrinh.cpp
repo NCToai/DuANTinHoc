@@ -2,11 +2,8 @@
 
 int main()
 {
-	ThanhVien TVien;
-	HoKhau HKhau;
+	HoKhau hoKhau;
 	Phuong DSHKhau;
-	
-	
 	bool tieptuc = true;
 	while (tieptuc)
 	{
@@ -19,6 +16,8 @@ int main()
 		cout << "4. Them 1 ho khau vào phuong." << endl;
 		cout << "5. Xoa 1 nguoi cua ho khau." << endl;
 		cout << "6. Xoa 1 ho khau cua phuong." << endl;
+		cout << "7. Tim 1 thanh vien." << endl;
+		cout << "8. Tim 1 ho khau cua phuong." << endl;
 		cout << "Nhap lua chon cua ban: ";
 		cin >> choice;
 		cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
@@ -59,6 +58,16 @@ int main()
 			XuatDSHoKhau(DSHKhau);
 			break;
 		}
+		case 7:
+		{
+			thongTinTVTiemKiem(DSHKhau);
+			break;
+		}
+		case 8:
+		{
+			thongtinHKTiemKiem(DSHKhau);
+			break;
+		}
 		case 0:
 			tieptuc = false;
 			
@@ -68,7 +77,6 @@ int main()
 			break;
 		}
 	}
-
 	
 	return 0;
 	system("pause");
